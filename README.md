@@ -8,3 +8,6 @@
 # This was built using:
 - C#, WPF
 - QRCoder Library from Raffael Herrmann (codebude) -> [Download Here](https://github.com/codebude/QRCoder)
+
+# Payloads that this application supports out of the box
+- TODO: Add payload types

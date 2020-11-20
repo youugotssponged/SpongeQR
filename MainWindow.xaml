@@ -20,10 +20,12 @@
                 </MenuItem>
             </Menu>
             <TextBox AcceptsReturn="True" />
+            <Image x:Name="image_viewer" Height="401" VerticalAlignment="Top" Width="498" HorizontalAlignment="Left"/>
         </DockPanel>
         
         <Button x:Name="btn_GenerateQR" Content="Generate New QR Code" HorizontalAlignment="Left" Margin="549,349,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_GenerateQR_Click"/>
         <Label x:Name="label_Title" Content="SpongeQR" HorizontalAlignment="Left" Margin="506,10,0,0" VerticalAlignment="Top" Height="74" Width="276" FontSize="48" FontFamily="Source Sans Pro Black"/>
+        <Button x:Name="btn_OpenQR" Content="Open QR Code" HorizontalAlignment="Left" Margin="549,208,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_OpenQR_Click"/>
 
     </Grid>
 </Window>
