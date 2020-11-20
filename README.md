@@ -7,4 +7,4 @@
 
 # This was built using:
 - C#, WPF
-- IronBarCode Library from Iron Software [Download Here](https://www.nuget.org/packages/BarCode/)
+- QRCoder Library from Raffael Herrmann (codebude) -> [Download Here](https://github.com/codebude/QRCoder)
