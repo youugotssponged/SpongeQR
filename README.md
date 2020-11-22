@@ -9,5 +9,10 @@
 - C#, WPF
 - QRCoder Library from Raffael Herrmann (codebude) -> [Download Here](https://github.com/codebude/QRCoder)
 
-# Payloads that this application supports out of the box
-- TODO: Add payload types
+# Payloads that this application (WILL) supports out of the box
+- Simple Message
+- Email
+- URL
+- Phone Number
+- Wifi
+- Calendar Event
