@@ -30,7 +30,6 @@ namespace SpongeQR
         {
             if (imageToSave == null) 
             {
-                MessageBox.Show("Please First Generate a QR Code to Save");
                 return;
             }
             else
@@ -60,31 +59,38 @@ namespace SpongeQR
         // BitmapSource to Bitmap Helper from https://gist.github.com/nashby - TODO: Credit them
         public Bitmap GetBitmap(BitmapSource source)
         {
-            Bitmap bmp = new Bitmap
-            (
-              source.PixelWidth,
-              source.PixelHeight,
-              System.Drawing.Imaging.PixelFormat.Format32bppPArgb
-            );
+            if (source == null) {
+                MessageBox.Show("There is no image to be saved, please generate one!");
+                return null;
+            }
+            else
+            {
+                Bitmap bmp = new Bitmap
+                (
+                  source.PixelWidth,
+                  source.PixelHeight,
+                  System.Drawing.Imaging.PixelFormat.Format32bppPArgb
+                );
 
-            BitmapData data = bmp.LockBits
-            (
-                new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size),
-                ImageLockMode.WriteOnly,
-                System.Drawing.Imaging.PixelFormat.Format32bppPArgb
-            );
+                BitmapData data = bmp.LockBits
+                (
+                    new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size),
+                    ImageLockMode.WriteOnly,
+                    System.Drawing.Imaging.PixelFormat.Format32bppPArgb
+                );
 
-            source.CopyPixels
-            (
-              Int32Rect.Empty,
-              data.Scan0,
-              data.Height * data.Stride,
-              data.Stride
-            );
+                source.CopyPixels
+                (
+                  Int32Rect.Empty,
+                  data.Scan0,
+                  data.Height * data.Stride,
+                  data.Stride
+                );
 
-            bmp.UnlockBits(data);
+                bmp.UnlockBits(data);
 
-            return bmp;
+                return bmp;
+            }
         }
     }
 }

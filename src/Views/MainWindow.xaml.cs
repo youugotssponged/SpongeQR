@@ -23,9 +23,25 @@ namespace SpongeQR
             qrOperations.GenerateSimpleMessage(TextBox_Message, image_viewer);
         }
 
+        // Save Handler
+        private void btn_SaveQR(object sender, RoutedEventArgs e)
+        {
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.bitmapsource));
+        }
+
         private void btn_OpenQR_Click(object sender, RoutedEventArgs e)
         {
             windowOperations.OpenImage(image_viewer);
+        }
+
+        private void MenuItemOpen_Click(object sender, RoutedEventArgs e)
+        {
+            windowOperations.OpenImage(image_viewer);
+        }
+
+        private void MenuItem_Save_Click(object sender, RoutedEventArgs e)
+        {
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.bitmapsource));
         }
 
         // Exit Handler
@@ -34,16 +50,7 @@ namespace SpongeQR
             // Close Application
             Application.Current.Shutdown();
         }
-        private void MenuItemOpen_Click(object sender, RoutedEventArgs e)
-        {
-            windowOperations.OpenImage(image_viewer);
-        }
 
-        // Save Handler
-        private void btn_SaveQR(object sender, RoutedEventArgs e)
-        {
-            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.bitmapsource));
-        }
         private void About_WindowMenuContext_Click(object sender, RoutedEventArgs e)
         {
             windowOperations.ShowAboutMessage();
