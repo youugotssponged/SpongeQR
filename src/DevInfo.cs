@@ -1,6 +1,6 @@
 ﻿namespace SpongeQR
 {
-    class DevInfo
+    public class DevInfo
     {
         private string Version { get; set; }
         private string Contact { get; set; }

@@ -22,6 +22,8 @@
             </Menu>
         </DockPanel>
 
+
+
         <TextBox x:Name="TextBox_Message" TextWrapping="Wrap" Text="Message To Encode" Margin="421,208,9,75" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
 
         <Button x:Name="btn_GenerateQR" Content="Generate New QR Code" HorizontalAlignment="Left" Margin="419,364,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_GenerateQR_Click"/>
@@ -32,10 +34,6 @@
         <Image x:Name="image_viewer" Height="301" VerticalAlignment="Top" Width="339" HorizontalAlignment="Left" RenderTransformOrigin="0.741,0.75" Margin="20,92,0,0"/>
 
         <Button x:Name="btn_SaveQRImage" Content="Save QR Image" HorizontalAlignment="Left" Margin="619,364,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_SaveQR"/>
-        <TextBox x:Name="TextBox_QRImageName" TextWrapping="Wrap" Text="QR Image Name" Margin="522,92,10,298"/>
-
-
-        <Label Content="File Name (.png):" Margin="414,90,214,294"/>
 
         <ComboBox Name="EncodeChoiceDropDown" Margin="419,140,10,241" SelectionChanged="EncodeChoiceDropDown_SelectionChanged">
             <ComboBoxItem IsSelected="True" Content="Simple Message"></ComboBoxItem>

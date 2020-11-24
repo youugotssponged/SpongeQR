@@ -72,6 +72,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\DevInfo.cs" />
+    <Compile Include="src\QRPayloadOperations.cs" />
+    <Compile Include="src\WindowOperations.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
