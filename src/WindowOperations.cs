@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -27,14 +28,23 @@ namespace SpongeQR
 
         public void SaveImage(Bitmap imageToSave)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Bitmap Image (.bmp)|*.bmp|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png";
-            if (saveFileDialog.ShowDialog() == true)
-            { 
-                imageToSave.Save(saveFileDialog.FileName);
-                MessageBox.Show($"{saveFileDialog.FileName} was saved successfully");
+            if (imageToSave == null) 
+            {
+                MessageBox.Show("Please First Generate a QR Code to Save");
+                return;
+            }
+            else
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Bitmap Image (.bmp)|*.bmp|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    imageToSave.Save(saveFileDialog.FileName);
+                    MessageBox.Show($"{saveFileDialog.FileName} was saved successfully");
+                }
             }
         }
+
 
         public void ShowAboutMessage()
         {
@@ -45,6 +55,36 @@ namespace SpongeQR
             );
 
             MessageBox.Show(devInfo.ToString());
+        }
+
+        // BitmapSource to Bitmap Helper from https://gist.github.com/nashby - TODO: Credit them
+        public Bitmap GetBitmap(BitmapSource source)
+        {
+            Bitmap bmp = new Bitmap
+            (
+              source.PixelWidth,
+              source.PixelHeight,
+              System.Drawing.Imaging.PixelFormat.Format32bppPArgb
+            );
+
+            BitmapData data = bmp.LockBits
+            (
+                new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size),
+                ImageLockMode.WriteOnly,
+                System.Drawing.Imaging.PixelFormat.Format32bppPArgb
+            );
+
+            source.CopyPixels
+            (
+              Int32Rect.Empty,
+              data.Scan0,
+              data.Height * data.Stride,
+              data.Stride
+            );
+
+            bmp.UnlockBits(data);
+
+            return bmp;
         }
     }
 }

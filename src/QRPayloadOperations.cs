@@ -15,6 +15,7 @@ namespace SpongeQR
     {
         private QRCodeGenerator qrGenerator;
         public Bitmap qrCodeImage { get; private set; }
+        public BitmapSource bitmapsource{ get; private set; }
         // ctor
         public QRPayloadOperations()
         {
@@ -32,8 +33,8 @@ namespace SpongeQR
             using (qrCodeImage = qrCode.GetGraphic(20)) {
                 // Convert and Set as Bitmap Data is sitting in memory and not in a file for the image viewer to load as a URI
                 ImageSourceConverter imgcv = new ImageSourceConverter();
-                var bitmapped = Imaging.CreateBitmapSourceFromHBitmap(qrCodeImage.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                imageViewer.Source = bitmapped; // BitmapSource
+                bitmapsource = Imaging.CreateBitmapSourceFromHBitmap(qrCodeImage.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                imageViewer.Source = bitmapsource; // BitmapSource
             };
 
             // Notify for now

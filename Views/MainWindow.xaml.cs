@@ -42,8 +42,7 @@ namespace SpongeQR
         // Save Handler
         private void btn_SaveQR(object sender, RoutedEventArgs e)
         {
-            windowOperations.SaveImage(qrOperations.qrCodeImage);
-            // Show Message Box upon save success
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.bitmapsource));
         }
         private void About_WindowMenuContext_Click(object sender, RoutedEventArgs e)
         {
