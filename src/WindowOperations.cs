@@ -59,7 +59,8 @@ namespace SpongeQR
         // BitmapSource to Bitmap Helper from https://gist.github.com/nashby - TODO: Credit them
         public Bitmap GetBitmap(BitmapSource source)
         {
-            if (source == null) {
+            if (source == null) 
+            {
                 MessageBox.Show("There is no image to be saved, please generate one!");
                 return null;
             }

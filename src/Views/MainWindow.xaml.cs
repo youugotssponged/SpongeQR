@@ -1,26 +1,50 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace SpongeQR
 {
     public partial class MainWindow : Window
     {
+        // Operation Specific - e.g. Save, Generate etc.
         private WindowOperations windowOperations;
         private QRPayloadOperations qrOperations;
 
+        // Payloads - Payload Dynamic UI Models
+        public SimpleMessagePayload SimpleMessage;
+        public EmailPayload Email;
+
+        // Reference to this window
+        public static MainWindow window;
+
+        // Function pointer to repoint functionality 
+        public delegate void Generate(Image image);
+        public Generate generate;
+
         public MainWindow()
         {
-            InitializeComponent();
+            // Window Settings
+            ResizeMode = ResizeMode.NoResize;
+
+            // Foward reference to this window
+            window = this;
 
             // Initialise Application Operations
             windowOperations = new WindowOperations();
             qrOperations = new QRPayloadOperations();
+
+            // Initialise Payloads
+            SimpleMessage = new SimpleMessagePayload();
+            Email = new EmailPayload();
+
+            // Initialise Main Window Components
+            InitializeComponent();
         }
 
         #region Button Handlers
         // Generate QR Image Handler
         private void btn_GenerateQR_Click(object sender, RoutedEventArgs e)
         {
-            qrOperations.GenerateSimpleMessage(TextBox_Message, image_viewer);
+            generate(image_viewer); // Execute whatever function generate is pointed to.
         }
 
         // Save Handler
@@ -62,23 +86,47 @@ namespace SpongeQR
         // Fires Upon Dropdown option Being Changed
         private void EncodeChoiceDropDown_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            /*if (EncodeChoiceDropDown.SelectedIndex == (int)Options.A)
+            switch (EncodeChoiceDropDown.SelectedIndex)
             {
-                MessageBox.Show("MESSAGE");
-            } else if(EncodeChoiceDropDown.SelectedIndex == (int)Options.B)
-            {
-                MessageBox.Show("Email");
-            }*/
+                case (int)DropDownOptions.SimpleMessage:
+                    SimpleMessage.GenerateComponents(mainGrid);
+                    Email.RemoveComponents(mainGrid);
 
-            // Test representation of the dropdown selections
-            /*enum Options
-            {
-                A = 0,
-                B,
-                C
-            }*/
+                    generate = qrOperations.GenerateMessagePayload;
+                    break;
+
+                case (int)DropDownOptions.Email:
+                    Email.GenerateComponents(mainGrid);
+                    SimpleMessage.RemoveComponents(mainGrid);
+
+                    generate = qrOperations.GenerateEmailPayload;
+                    break;
+
+
+                // IMPLEMENT THE REST
+                case (int)DropDownOptions.URL:
+                    break;
+
+                case (int)DropDownOptions.PhoneNumber:
+                    break;
+
+                case (int)DropDownOptions.Wifi:
+                    break;
+
+                case (int)DropDownOptions.CalendarEvent:
+                    break;
+            }
+        }
+
+        public enum DropDownOptions
+        {
+            SimpleMessage = 0,
+            Email,
+            URL,
+            PhoneNumber,
+            Wifi,
+            CalendarEvent
         }
         #endregion
-
     }
 }

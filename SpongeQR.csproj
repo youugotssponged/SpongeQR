@@ -72,6 +72,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\DevInfo.cs" />
+    <Compile Include="src\Payloads\EmailPayload.cs" />
+    <Compile Include="src\Payloads\IPayloadUI.cs" />
+    <Compile Include="src\Payloads\SimpleMessagePayload.cs" />
     <Compile Include="src\QRPayloadOperations.cs" />
     <Compile Include="src\WindowOperations.cs" />
     <Compile Include="src\Views\MainWindow.xaml.cs">
