@@ -1,18 +1,34 @@
 # SpongeQR
 
-## SpongeQR is a C#.net WPF based Windows Application that i'm currently developing based on the ideas of:
-- Current Events (such as COVID and many startups being affected by this)
-- To create a simple to use generator tool to allow businesses, startups and individuals to promote themselves. 
-- To further my own self learning.
+<p align="center">
+  <img width="200" height="200" src="./Images/SpongeQR.png">
+</p>
 
-# This was built using:
-- C#, WPF
-- QRCoder Library from Raffael Herrmann (codebude) -> [Download Here](https://github.com/codebude/QRCoder)
+**SpongeQR** is a **C#.NET WPF** based **Windows Application** that i'm currently developing based on the idea of creating a simple to use tool that freely allows
+individuals, freelancers, small businesses and startups generate their own **QR Codes** easily from a single lightweight application.
 
-# Payloads that this application (WILL) supports out of the box
+Source and Application are under the [**MIT Licence**](https://github.com/youugotssponged/SpongeQR/blob/main/LICENSE), so it's completely free!
+
+_Due to the current events with COVID-19, i thought this would be a neat little tool to help towards the transition of 
+businesses utilising online methods of advertising and providing their services._
+
+* * *
+
+### Special Thanks to:
+Throughout developing this application, i utilised the QRCoder Library developed by **Raffael Herrmann (@codebude)** extensively, 
+from this i learned a lot more than i already knew about QR Codes and how they are generated. 
+Below is a link to his repo which also houses the wonderfully written documentation which makes putting together QR Codes so simple and effective.
+
+- **_QRCoder Library from Raffael Herrmann (@codebude)_** -> [Fork / Download Here](https://github.com/codebude/QRCoder)
+
+* * *
+
+## Payloads (Types of QR) that this application supports out of the box currently:
 - Simple Message
 - Email
 - URL
 - Phone Number
 - Wifi
 - Calendar Event
+
+* * *

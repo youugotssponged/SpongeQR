@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows;
 using System.Windows.Media.Imaging;
-
-using Microsoft.Win32;
-
 
 namespace SpongeQR
 {
@@ -19,7 +17,6 @@ namespace SpongeQR
               "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
               "Portable Network Graphic (*.png)|*.png";
 
-            
             if (op.ShowDialog() == true)
             {
                 imageToOpen.Source = new BitmapImage(new Uri(op.FileName));
@@ -28,7 +25,7 @@ namespace SpongeQR
 
         public void SaveImage(Bitmap imageToSave)
         {
-            if (imageToSave == null) 
+            if (imageToSave == null)
             {
                 return;
             }
@@ -44,11 +41,10 @@ namespace SpongeQR
             }
         }
 
-
         public void ShowAboutMessage()
         {
             DevInfo devInfo = new DevInfo(
-                "1.0.1",
+                "1.0.0",
                 "jordanmccann64@outlook.com",
                 "Thank you for using Sponge QR! \n\nHope it has helped you on your venture <3"
             );
@@ -56,10 +52,10 @@ namespace SpongeQR
             MessageBox.Show(devInfo.ToString());
         }
 
-        // BitmapSource to Bitmap Helper from https://gist.github.com/nashby - TODO: Credit them
+        // BitmapSource to Bitmap Helper from https://gist.github.com/nashby
         public Bitmap GetBitmap(BitmapSource source)
         {
-            if (source == null) 
+            if (source == null)
             {
                 MessageBox.Show("There is no image to be saved, please generate one!");
                 return null;

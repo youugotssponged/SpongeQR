@@ -5,33 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpongeQR"
         mc:Ignorable="d"
-        Title="SpongeQR 1.0.1" Height="450" Width="800">
+        Title="SpongeQR 1.0.0" Height="450" Width="800">
     <Grid x:Name="mainGrid">
         <DockPanel Margin="0,0,0,393">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
+                    <MenuItem Header="_New" Click="MenuItem_New_Click" />
                     <MenuItem Header="_Open" Click="MenuItemOpen_Click" />
                     <MenuItem Header="_Save" Click="MenuItem_Save_Click" />
                     <Separator />
                     <MenuItem Header="_Exit" Click="MenuItemExit_Click" />
                 </MenuItem>
                 <MenuItem x:Name="About_WindowMenuContext" Header="_About" Click="About_WindowMenuContext_Click">
-
                 </MenuItem>
             </Menu>
         </DockPanel>
 
-        <Button x:Name="btn_GenerateQR" Content="Generate New QR Code" HorizontalAlignment="Left" Margin="383,46,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_GenerateQR_Click"/>
-        <Label x:Name="label_Title" Content="SpongeQR" HorizontalAlignment="Left" Margin="20,13,0,0" VerticalAlignment="Top" Height="74" Width="276" FontSize="48" FontFamily="Source Sans Pro Black"/>
-        <Button x:Name="btn_OpenQR" Content="Open QR Code" HorizontalAlignment="Left" Margin="479,364,0,0" VerticalAlignment="Top" Width="150" Height="29" Click="btn_OpenQR_Click" RenderTransformOrigin="0.91,-10.741"/>
+        <Button x:Name="btn_GenerateQR" Content="Generate QR Code" HorizontalAlignment="Left" Margin="383,46,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_GenerateQR_Click" />
+        <Label x:Name="label_Title" Content="SpongeQR" HorizontalAlignment="Left" Margin="42,23,0,0" VerticalAlignment="Top" Height="74" Width="276" FontSize="48" FontFamily="Source Sans Pro Black" />
 
-        <Image x:Name="image_viewer" Height="301" VerticalAlignment="Top" Width="339" HorizontalAlignment="Left" RenderTransformOrigin="0.741,0.75" Margin="20,92,0,0"/>
-        <Rectangle HorizontalAlignment="Left" Height="301" Margin="20,92,0,0" Stroke="Black" VerticalAlignment="Top" Width="298"/>
+        <Image x:Name="image_viewer" Height="301" VerticalAlignment="Top" Width="339" HorizontalAlignment="Left" RenderTransformOrigin="0.741,0.75" Margin="20,92,0,0" />
+        <Rectangle HorizontalAlignment="Left" Height="301" Margin="20,92,0,0" Stroke="Black" VerticalAlignment="Top" Width="298" />
 
-        <Button x:Name="btn_SaveQRImage" Content="Save QR Image" HorizontalAlignment="Left" Margin="597,46,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_SaveQR"/>
+        <Button x:Name="btn_SaveQRImage" Content="Save QR Image" HorizontalAlignment="Left" Margin="597,46,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_SaveQR" />
 
-        <ComboBox Name="EncodeChoiceDropDown" Margin="383,101,46,280" SelectionChanged="EncodeChoiceDropDown_SelectionChanged">
+        <ComboBox Name="EncodeChoiceDropDown" Margin="383,106,46,275" SelectionChanged="EncodeChoiceDropDown_SelectionChanged">
             <ComboBoxItem IsSelected="True" Content="Simple Message"></ComboBoxItem>
             <ComboBoxItem Content="Email"></ComboBoxItem>
             <ComboBoxItem Content="URL / Web Link"></ComboBoxItem>
@@ -39,6 +37,5 @@
             <ComboBoxItem Content="Wifi"></ComboBoxItem>
             <ComboBoxItem Content="Calendar Event"></ComboBoxItem>
         </ComboBox>
-        
     </Grid>
 </Window>

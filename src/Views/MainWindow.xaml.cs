@@ -7,17 +7,23 @@ namespace SpongeQR
     {
         // Operation Specific - e.g. Save, Generate etc.
         private WindowOperations windowOperations;
+
         private QRPayloadOperations qrOperations;
 
         // Payloads - Payload Dynamic UI Models
-        public SimpleMessagePayload SimpleMessage;
+        public MessagePayload Message;
+
         public EmailPayload Email;
+        public URLPayload Url;
+        public PhoneNumberPayload PhoneNumber;
+        public WIFIPayload Wifi;
 
         // Reference to this window
         public static MainWindow window;
 
-        // Function pointer to repoint functionality 
+        // Function pointer to repoint functionality
         public delegate void Generate(Image image);
+
         public Generate generate;
 
         public MainWindow()
@@ -25,22 +31,26 @@ namespace SpongeQR
             // Window Settings
             ResizeMode = ResizeMode.NoResize;
 
-            // Foward reference to this window
+            // Forward reference to this window
             window = this;
 
-            // Initialise Application Operations
+            // Initialize Application Operations
             windowOperations = new WindowOperations();
             qrOperations = new QRPayloadOperations();
 
-            // Initialise Payloads
-            SimpleMessage = new SimpleMessagePayload();
+            // Initialize Payloads
+            Message = new MessagePayload();
             Email = new EmailPayload();
+            Url = new URLPayload();
+            PhoneNumber = new PhoneNumberPayload();
+            Wifi = new WIFIPayload();
 
-            // Initialise Main Window Components
+            // Initialize Main Window Components
             InitializeComponent();
         }
 
         #region Button Handlers
+
         // Generate QR Image Handler
         private void btn_GenerateQR_Click(object sender, RoutedEventArgs e)
         {
@@ -50,12 +60,20 @@ namespace SpongeQR
         // Save Handler
         private void btn_SaveQR(object sender, RoutedEventArgs e)
         {
-            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.bitmapsource));
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.Bitmapsource));
         }
 
         private void btn_OpenQR_Click(object sender, RoutedEventArgs e)
         {
             windowOperations.OpenImage(image_viewer);
+        }
+
+        #region Menu Items
+
+        private void MenuItem_New_Click(object sender, RoutedEventArgs e)
+        {
+            image_viewer.Source = null;
+            EncodeChoiceDropDown.SelectedIndex = 0;
         }
 
         private void MenuItemOpen_Click(object sender, RoutedEventArgs e)
@@ -65,13 +83,12 @@ namespace SpongeQR
 
         private void MenuItem_Save_Click(object sender, RoutedEventArgs e)
         {
-            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.bitmapsource));
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.Bitmapsource));
         }
 
         // Exit Handler
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
-            // Close Application
             Application.Current.Shutdown();
         }
 
@@ -80,45 +97,60 @@ namespace SpongeQR
             windowOperations.ShowAboutMessage();
         }
 
-        #endregion
+        #endregion Menu Items
+
+        #endregion Button Handlers
 
         #region Unique Component Handlers
-        // Fires Upon Dropdown option Being Changed
+
+        // Fires Upon Drop-down option Being Changed
         private void EncodeChoiceDropDown_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             switch (EncodeChoiceDropDown.SelectedIndex)
             {
                 case (int)DropDownOptions.SimpleMessage:
-                    SimpleMessage.GenerateComponents(mainGrid);
-                    Email.RemoveComponents(mainGrid);
-
-                    generate = qrOperations.GenerateMessagePayload;
+                    GenerateAndRemoveComponents(Message, qrOperations.GenerateMessagePayload, Email, Url, PhoneNumber, Wifi);
                     break;
 
                 case (int)DropDownOptions.Email:
-                    Email.GenerateComponents(mainGrid);
-                    SimpleMessage.RemoveComponents(mainGrid);
-
-                    generate = qrOperations.GenerateEmailPayload;
+                    GenerateAndRemoveComponents(Email, qrOperations.GenerateEmailPayload, Message, Url, PhoneNumber, Wifi);
                     break;
-
-
                 // IMPLEMENT THE REST
                 case (int)DropDownOptions.URL:
+                    GenerateAndRemoveComponents(Url, qrOperations.GenerateURLPayload, Message, Email, PhoneNumber, Wifi);
                     break;
 
                 case (int)DropDownOptions.PhoneNumber:
+                    GenerateAndRemoveComponents(PhoneNumber, qrOperations.GeneratePhoneNumberPayload, Message, Email, Url, Wifi);
                     break;
 
                 case (int)DropDownOptions.Wifi:
+                    GenerateAndRemoveComponents(Wifi, qrOperations.GenerateWIFIPayload, Message, Email, Url, PhoneNumber);
                     break;
 
                 case (int)DropDownOptions.CalendarEvent:
+
+                    generate = qrOperations.GenerateCalendarEventPayload;
                     break;
             }
         }
 
-        public enum DropDownOptions
+        private void GenerateAndRemoveComponents(IPayloadUI toGenerate, Generate PayloadOperationToBeExecuted, params IPayloadUI[] toBeRemoved)
+        {
+            // Call Generate
+            toGenerate.GenerateComponents(mainGrid);
+
+            // Point to operation to be executed later
+            generate = PayloadOperationToBeExecuted;
+
+            // Remove Each Specified
+            foreach (IPayloadUI component in toBeRemoved)
+            {
+                component.RemoveComponents(mainGrid);
+            }
+        }
+
+        private enum DropDownOptions
         {
             SimpleMessage = 0,
             Email,
@@ -127,6 +159,7 @@ namespace SpongeQR
             Wifi,
             CalendarEvent
         }
-        #endregion
+
+        #endregion Unique Component Handlers
     }
 }

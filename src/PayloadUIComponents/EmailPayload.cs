@@ -22,7 +22,7 @@ namespace SpongeQR
             email.Width = 363;
             email.VerticalAlignment = VerticalAlignment.Top;
             email.HorizontalAlignment = HorizontalAlignment.Left;
-            
+
             subject.Text = "The Subject.";
             subject.Height = 23;
             subject.Margin = new Thickness(383, 209, 0, 0);
@@ -40,9 +40,6 @@ namespace SpongeQR
             message.HorizontalAlignment = HorizontalAlignment.Left;
             message.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
             message.AcceptsReturn = true;
-
-
-
 
             parent.Children.Add(email);
             parent.Children.Add(subject);

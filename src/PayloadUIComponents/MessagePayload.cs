@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace SpongeQR
 {
-    public class SimpleMessagePayload : IPayloadUI
+    public class MessagePayload : IPayloadUI
     {
         public TextBox message;
 

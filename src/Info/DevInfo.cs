@@ -20,6 +20,5 @@
                 $"Contact: {Contact}\n\n" +
                 $"{Message}";
         }
-
     }
 }
