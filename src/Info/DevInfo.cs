@@ -2,7 +2,7 @@
 {
     public class DevInfo
     {
-        private string Version { get; set; }
+        public string Version { get; set; }
         private string Contact { get; set; }
         private string Message { get; set; }
 

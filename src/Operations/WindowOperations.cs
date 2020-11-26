@@ -9,10 +9,22 @@ namespace SpongeQR
 {
     public class WindowOperations
     {
+        public DevInfo devInfo;
+
+        public WindowOperations()
+        {
+            devInfo = new DevInfo
+            (
+                "1.0.0",
+                "jordanmccann64@outlook.com",
+                "Thank you for using Sponge QR! \n\nHope it has helped you on your venture <3"
+            );
+        }
+
         public void OpenImage(System.Windows.Controls.Image imageToOpen)
         {
             OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Select a QR Code";
+            op.Title = "Select a QR Code to Open";
             op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
               "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
               "Portable Network Graphic (*.png)|*.png";
@@ -33,23 +45,19 @@ namespace SpongeQR
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Bitmap Image (.bmp)|*.bmp|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png";
+
                 if (saveFileDialog.ShowDialog() == true)
                 {
+                    saveFileDialog.Title = "Save a QR Code";
                     imageToSave.Save(saveFileDialog.FileName);
-                    MessageBox.Show($"{saveFileDialog.FileName} was saved successfully");
+                    MessageBox.Show($"{saveFileDialog.FileName} was saved successfully", "Save Success!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
 
         public void ShowAboutMessage()
         {
-            DevInfo devInfo = new DevInfo(
-                "1.0.0",
-                "jordanmccann64@outlook.com",
-                "Thank you for using Sponge QR! \n\nHope it has helped you on your venture <3"
-            );
-
-            MessageBox.Show(devInfo.ToString());
+            MessageBox.Show(devInfo.ToString(), "Sponge QR: " + devInfo.Version, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // BitmapSource to Bitmap Helper from https://gist.github.com/nashby

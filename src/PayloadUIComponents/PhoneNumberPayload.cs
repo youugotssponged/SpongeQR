@@ -9,15 +9,16 @@ namespace SpongeQR
 
         public void GenerateComponents(Grid parent)
         {
-            number = new TextBox();
-
-            number.Text = "The Phone Number";
-            number.Height = 23;
-            number.Margin = new Thickness(383, 169, 0, 0);
-            number.TextWrapping = TextWrapping.Wrap;
-            number.Width = 363;
-            number.VerticalAlignment = VerticalAlignment.Top;
-            number.HorizontalAlignment = HorizontalAlignment.Left;
+            number = new TextBox
+            {
+                Text = "The Phone Number",
+                Height = 23,
+                Margin = new Thickness(383, 169, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Width = 363,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
 
             parent.Children.Add(number);
         }

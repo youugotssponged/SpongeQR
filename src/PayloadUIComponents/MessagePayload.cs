@@ -9,13 +9,15 @@ namespace SpongeQR
 
         public void GenerateComponents(Grid parent)
         {
-            message = new TextBox();
+            message = new TextBox
+            {
+                Text = "Message to Encode",
+                TextWrapping = TextWrapping.Wrap,
+                AcceptsReturn = true,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
+                Margin = new Thickness(384, 164, 46, 119)
+            };
 
-            message.Text = "Message to Encode";
-            message.TextWrapping = System.Windows.TextWrapping.Wrap;
-            message.AcceptsReturn = true;
-            message.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            message.Margin = new Thickness(384, 164, 46, 119);
 
             parent.Children.Add(message);
         }

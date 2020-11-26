@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static QRCoder.PayloadGenerator;
 
+
 namespace SpongeQR
 {
     public class QRPayloadOperations
@@ -17,7 +18,6 @@ namespace SpongeQR
 
         private MainWindow windowRef;
 
-        // ctor
         public QRPayloadOperations()
         {
             qrGenerator = new QRCodeGenerator();
@@ -38,7 +38,7 @@ namespace SpongeQR
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
 
             // Notify for now
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"");
+            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void GenerateEmailPayload(System.Windows.Controls.Image imageViewer)
@@ -57,7 +57,7 @@ namespace SpongeQR
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
 
             // Notify for now
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"");
+            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void GenerateURLPayload(System.Windows.Controls.Image imageViewer)
@@ -70,7 +70,7 @@ namespace SpongeQR
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
 
             // Notify for now
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"");
+            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void GeneratePhoneNumberPayload(System.Windows.Controls.Image imageViewer)
@@ -81,8 +81,7 @@ namespace SpongeQR
             QRCode qrCode = new QRCode(qrCodeData);
 
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
-
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"");
+            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void GenerateWIFIPayload(System.Windows.Controls.Image imageViewer)
@@ -91,14 +90,21 @@ namespace SpongeQR
             string password = windowRef.Wifi.password.Text;
             string authMode = windowRef.Wifi.authMode.Text;
 
-            // clean this up
+            // clean this up + implement dropdown to switch between auth types instead of text entry (avoids character pattern checking)
             WiFi.Authentication auth;
 
-            // TODO: Show message box if authmode != WPA OR WEP, IF empty
-            if (authMode == "WPA") auth = WiFi.Authentication.WPA;
-            else if (authMode == "WEP") auth = WiFi.Authentication.WEP;
-            else auth = WiFi.Authentication.nopass;
+            if (authMode == "WPA") {
+                auth = WiFi.Authentication.WPA;
+            } else if (authMode == "WEP") {
+                auth = WiFi.Authentication.WEP;
+            } else if(authMode == "None" || authMode == "NONE" || authMode == "none") { 
+                auth = WiFi.Authentication.nopass; 
+            } else {
+                MessageBox.Show("Please Enter an Authentication Type!");
+                return;
+            }
 
+            // Generate
             WiFi generator = new WiFi(ssid, password, auth);
             string payload = generator.ToString();
 
@@ -107,16 +113,17 @@ namespace SpongeQR
 
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
 
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"");
+            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void GenerateCalendarEventPayload(System.Windows.Controls.Image imageViewer)
         {
-            MessageBox.Show("Calendar");
+            MessageBox.Show("Calendar Feature Not Available");
         }
 
         #endregion Generate Payload Methods
 
+        #region Helper Functions
         private void ConvertBitmapToSourceAndDisplay(Bitmap qrImage, QRCode code, BitmapSource source, System.Windows.Controls.Image imageViewer)
         {
             // Dispose bitmap from memory with GC as Bitmap is IDisposable
@@ -135,5 +142,6 @@ namespace SpongeQR
                 imageViewer.Source = Bitmapsource; // Set the newly converted source.
             };
         }
+        #endregion
     }
 }

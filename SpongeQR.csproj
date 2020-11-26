@@ -112,6 +112,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\Info\DevInfo.cs" />
+    <Compile Include="src\PayloadUIComponents\CalendarPayload.cs" />
     <Compile Include="src\PayloadUIComponents\EmailPayload.cs" />
     <Compile Include="src\PayloadUIComponents\IPayloadUI.cs" />
     <Compile Include="src\PayloadUIComponents\PhoneNumberPayload.cs" />

@@ -11,36 +11,43 @@ namespace SpongeQR
 
         public void GenerateComponents(Grid parent)
         {
-            email = new TextBox();
-            subject = new TextBox();
-            message = new TextBox();
+            email = new TextBox
+            {
+                Text = "The Email",
+                Height = 23,
+                Margin = new Thickness(383, 169, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Width = 363,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
 
-            email.Text = "The Email";
-            email.Height = 23;
-            email.Margin = new Thickness(383, 169, 0, 0);
-            email.TextWrapping = TextWrapping.Wrap;
-            email.Width = 363;
-            email.VerticalAlignment = VerticalAlignment.Top;
-            email.HorizontalAlignment = HorizontalAlignment.Left;
 
-            subject.Text = "The Subject.";
-            subject.Height = 23;
-            subject.Margin = new Thickness(383, 209, 0, 0);
-            subject.TextWrapping = TextWrapping.Wrap;
-            subject.Width = 363;
-            subject.VerticalAlignment = VerticalAlignment.Top;
-            subject.HorizontalAlignment = HorizontalAlignment.Left;
+            subject = new TextBox
+            {
+                Text = "The Subject.",
+                Height = 23,
+                Margin = new Thickness(383, 209, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Width = 363,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
 
-            message.Text = "The Message.";
-            message.Height = 102;
-            message.Width = 363;
-            message.Margin = new Thickness(383, 246, 0, 0);
-            message.TextWrapping = TextWrapping.Wrap;
-            message.VerticalAlignment = VerticalAlignment.Top;
-            message.HorizontalAlignment = HorizontalAlignment.Left;
-            message.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            message.AcceptsReturn = true;
+            message = new TextBox
+            {
+                Text = "The Message.",
+                Height = 102,
+                Width = 363,
+                Margin = new Thickness(383, 246, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Top,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
+                AcceptsReturn = true
+            };
 
+            // Append to the Window's grid
             parent.Children.Add(email);
             parent.Children.Add(subject);
             parent.Children.Add(message);

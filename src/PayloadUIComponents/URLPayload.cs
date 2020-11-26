@@ -9,13 +9,14 @@ namespace SpongeQR
 
         public void GenerateComponents(Grid parent)
         {
-            url = new TextBox();
-
-            url.Text = "URL to Encode";
-            url.TextWrapping = System.Windows.TextWrapping.Wrap;
-            url.AcceptsReturn = true;
-            url.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            url.Margin = new Thickness(384, 164, 46, 119);
+            url = new TextBox
+            {
+                Text = "URL to Encode",
+                TextWrapping = System.Windows.TextWrapping.Wrap,
+                AcceptsReturn = true,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
+                Margin = new Thickness(384, 164, 46, 119)
+            };
 
             parent.Children.Add(url);
         }

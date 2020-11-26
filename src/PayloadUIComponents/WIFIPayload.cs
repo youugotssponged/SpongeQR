@@ -12,39 +12,47 @@ namespace SpongeQR
 
         public void GenerateComponents(Grid parent)
         {
-            hint = new Label();
-            hint.Content = "Note: Must be WPA or WEP, for WPA2 just enter WPA";
-            hint.HorizontalAlignment = HorizontalAlignment.Left;
-            hint.Margin = new Thickness(413, 255, 0, 0);
-            hint.VerticalAlignment = VerticalAlignment.Top;
-            hint.Width = 309;
+            hint = new Label
+            {
+                Content = "Note: Must be WPA or WEP, for WPA2 just enter WPA. \nIf neither then please enter NONE",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new Thickness(400, 240, 0, 0),
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 300
+            };
 
-            ssid = new TextBox();
-            ssid.HorizontalAlignment = HorizontalAlignment.Left;
-            ssid.Height = 23;
-            ssid.Margin = new Thickness(383, 167, 0, 0);
-            ssid.TextWrapping = TextWrapping.Wrap;
-            ssid.Text = "SSID - Wifi Name";
-            ssid.VerticalAlignment = VerticalAlignment.Top;
-            ssid.Width = 363;
+            ssid = new TextBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Height = 23,
+                Margin = new Thickness(383, 167, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Text = "SSID - Wifi Name",
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 363
+            };
 
-            password = new TextBox();
-            password.HorizontalAlignment = HorizontalAlignment.Left;
-            password.Height = 23;
-            password.Margin = new Thickness(383, 213, 0, 0);
-            password.TextWrapping = TextWrapping.Wrap;
-            password.Text = "Password";
-            password.VerticalAlignment = VerticalAlignment.Top;
-            password.Width = 363;
+            password = new TextBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Height = 23,
+                Margin = new Thickness(383, 213, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Text = "Password",
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 363
+            };
 
-            authMode = new TextBox();
-            authMode.HorizontalAlignment = HorizontalAlignment.Left;
-            authMode.Height = 23;
-            authMode.Margin = new Thickness(383, 281, 0, 0);
-            authMode.TextWrapping = TextWrapping.Wrap;
-            authMode.Text = "Authentication Type";
-            authMode.VerticalAlignment = VerticalAlignment.Top;
-            authMode.Width = 363;
+            authMode = new TextBox
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Height = 23,
+                Margin = new Thickness(383, 281, 0, 0),
+                TextWrapping = TextWrapping.Wrap,
+                Text = "Authentication Type",
+                VerticalAlignment = VerticalAlignment.Top,
+                Width = 363
+            };
 
             // Add to grid
             parent.Children.Add(hint);
