@@ -4,12 +4,12 @@
   <img width="200" height="200" src="./Images/SpongeQR.png">
 </p>
 
-**SpongeQR** is a **C#.NET WPF** based **Windows Application** that i'm currently developing based on the idea of creating a simple to use tool that freely allows
+**SpongeQR** is a **C# .NETCORE(3.1) WPF** based **Application** that i'm currently developing based on the idea of creating a simple to use tool that freely allows
 individuals, freelancers, small businesses and startups generate their own **QR Codes** easily from a single lightweight application.
 
 Source and Application are under the [**MIT License**](https://github.com/youugotssponged/SpongeQR/blob/main/LICENSE), so it's completely free!
 
-**Download it here: [Sponge QR 1.0](https://github.com/youugotssponged/SpongeQR/releases/tag/v1.0.0-release)**
+**Download it here: [Sponge QR Download](https://github.com/youugotssponged/SpongeQR/releases/tag/v1.0.0-release)**
 **[NOTE: Please ensure your Windows 10 is updated to latest in order to install]**
 
 _Due to the current events with COVID-19, i thought this would be a neat little tool to help towards the transition of 

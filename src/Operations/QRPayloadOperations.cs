@@ -26,104 +26,99 @@ namespace SpongeQR
             windowRef = MainWindow.window;
         }
 
-        #region Generate Payload Methods
+        #region Generate Payload QR Code Methods
 
-        public void GenerateMessagePayload(System.Windows.Controls.Image imageViewer)
+        public void GenerateMessageQR(System.Windows.Controls.Image imageViewer)
         {
             string messageToEncode = windowRef.Message.message.Text;
 
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(messageToEncode, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            QRCode qrCode = GenerateQRData(messageToEncode);
 
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
-
-            // Notify for now
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void GenerateEmailPayload(System.Windows.Controls.Image imageViewer)
+        public void GenerateEmailQR(System.Windows.Controls.Image imageViewer)
         {
             string email = windowRef.Email.email.Text;
             string subject = windowRef.Email.subject.Text;
             string message = windowRef.Email.message.Text;
 
-            // Replace with textbox text
             Mail generator = new Mail(email, subject, message);
             string payload = generator.ToString();
 
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            QRCode qrCode = GenerateQRData(payload);
 
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
-
-            // Notify for now
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void GenerateURLPayload(System.Windows.Controls.Image imageViewer)
+        public void GenerateURLQR(System.Windows.Controls.Image imageViewer)
         {
             string url = windowRef.Url.url.Text;
 
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            QRCode qrCode = GenerateQRData(url);
 
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
-
-            // Notify for now
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void GeneratePhoneNumberPayload(System.Windows.Controls.Image imageViewer)
+        public void GeneratePhoneNumberQR(System.Windows.Controls.Image imageViewer)
         {
             string phoneNumber = windowRef.PhoneNumber.number.Text;
 
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(phoneNumber, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            QRCode qrCode = GenerateQRData(phoneNumber);
 
-            ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer); 
         }
 
-        public void GenerateWIFIPayload(System.Windows.Controls.Image imageViewer)
+        public void GenerateWIFIQR(System.Windows.Controls.Image imageViewer)
         {
             string ssid = windowRef.Wifi.ssid.Text;
             string password = windowRef.Wifi.password.Text;
             string authMode = windowRef.Wifi.authMode.Text;
 
-            // clean this up + implement dropdown to switch between auth types instead of text entry (avoids character pattern checking)
-            WiFi.Authentication auth;
+            WiFi.Authentication auth = CheckWIFIAuthTypeSelected(authMode);
+            if (auth == WiFi.Authentication.nopass) return;
 
-            if (authMode == "WPA") {
-                auth = WiFi.Authentication.WPA;
-            } else if (authMode == "WEP") {
-                auth = WiFi.Authentication.WEP;
-            } else if(authMode == "None" || authMode == "NONE" || authMode == "none") { 
-                auth = WiFi.Authentication.nopass; 
-            } else {
-                MessageBox.Show("Please Enter an Authentication Type!");
-                return;
-            }
-
-            // Generate
             WiFi generator = new WiFi(ssid, password, auth);
             string payload = generator.ToString();
 
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
-            QRCode qrCode = new QRCode(qrCodeData);
+            QRCode qrCode = GenerateQRData(payload);
 
             ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
-
-            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void GenerateCalendarEventPayload(System.Windows.Controls.Image imageViewer)
+        public void GenerateCalendarEventQR(System.Windows.Controls.Image imageViewer)
         {
             MessageBox.Show("Calendar Feature Not Available");
         }
 
-        #endregion Generate Payload Methods
+        #endregion Generate Payload QR Code Methods
 
         #region Helper Functions
+        private QRCode GenerateQRData(string payload)
+        {
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qrCodeData);
+
+            return qrCode;
+        }
+
+        private WiFi.Authentication CheckWIFIAuthTypeSelected(string authModeChosen)
+        {
+            if (authModeChosen == "WPA")
+            {
+                return WiFi.Authentication.WPA;
+            }
+            else if (authModeChosen == "WEP")
+            {
+                return WiFi.Authentication.WEP;
+            }
+            else
+            {
+                MessageBox.Show("Please Enter an Authentication Type!");
+                return WiFi.Authentication.nopass;
+            }
+        }
+
         private void ConvertBitmapToSourceAndDisplay(Bitmap qrImage, QRCode code, BitmapSource source, System.Windows.Controls.Image imageViewer)
         {
             // Dispose bitmap from memory with GC as Bitmap is IDisposable
@@ -141,6 +136,8 @@ namespace SpongeQR
 
                 imageViewer.Source = Bitmapsource; // Set the newly converted source.
             };
+
+            MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         #endregion
     }

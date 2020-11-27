@@ -124,22 +124,22 @@ namespace SpongeQR
             switch (EncodeChoiceDropDown.SelectedIndex)
             {
                 case (int)DropDownOptions.SimpleMessage:
-                    GenerateAndRemoveComponents(Message, qrOperations.GenerateMessagePayload, Email, Url, PhoneNumber, Wifi, Calendar);
+                    GenerateAndRemoveComponents(Message, qrOperations.GenerateMessageQR, Email, Url, PhoneNumber, Wifi, Calendar);
                     break;
                 case (int)DropDownOptions.Email:
-                    GenerateAndRemoveComponents(Email, qrOperations.GenerateEmailPayload, Message, Url, PhoneNumber, Wifi, Calendar);
+                    GenerateAndRemoveComponents(Email, qrOperations.GenerateEmailQR, Message, Url, PhoneNumber, Wifi, Calendar);
                     break;
                 case (int)DropDownOptions.URL:
-                    GenerateAndRemoveComponents(Url, qrOperations.GenerateURLPayload, Message, Email, PhoneNumber, Wifi, Calendar);
+                    GenerateAndRemoveComponents(Url, qrOperations.GenerateURLQR, Message, Email, PhoneNumber, Wifi, Calendar);
                     break;
                 case (int)DropDownOptions.PhoneNumber:
-                    GenerateAndRemoveComponents(PhoneNumber, qrOperations.GeneratePhoneNumberPayload, Message, Email, Url, Wifi, Calendar);
+                    GenerateAndRemoveComponents(PhoneNumber, qrOperations.GeneratePhoneNumberQR, Message, Email, Url, Wifi, Calendar);
                     break;
                 case (int)DropDownOptions.Wifi:
-                    GenerateAndRemoveComponents(Wifi, qrOperations.GenerateWIFIPayload, Message, Email, Url, PhoneNumber, Calendar);
+                    GenerateAndRemoveComponents(Wifi, qrOperations.GenerateWIFIQR, Message, Email, Url, PhoneNumber, Calendar);
                     break;
                 case (int)DropDownOptions.CalendarEvent:
-                    GenerateAndRemoveComponents(Calendar, qrOperations.GenerateCalendarEventPayload, Message, Email, Url, PhoneNumber, Wifi);
+                    GenerateAndRemoveComponents(Calendar, qrOperations.GenerateCalendarEventQR, Message, Email, Url, PhoneNumber, Wifi);
                     break;
             }
         }

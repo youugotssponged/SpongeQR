@@ -36,8 +36,6 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
-# Installer
-[Ss]pongeQR_Installer/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

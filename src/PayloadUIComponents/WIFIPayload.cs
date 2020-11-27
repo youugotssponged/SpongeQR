@@ -14,7 +14,7 @@ namespace SpongeQR
         {
             hint = new Label
             {
-                Content = "Note: Must be WPA or WEP, for WPA2 just enter WPA. \nIf neither then please enter NONE",
+                Content = "Note: Must be WPA or WEP, for WPA2 just enter WPA.",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(400, 240, 0, 0),
                 VerticalAlignment = VerticalAlignment.Top,

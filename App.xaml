@@ -1,7 +1,7 @@
-﻿<Application x:Class="SpongeQR.App"
+﻿<Application x:Class="SpongeQR_dotnet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SpongeQR"
+             xmlns:local="clr-namespace:SpongeQR_dotnet"
              StartupUri="../src/Views/MainWindow.xaml">
     <Application.Resources>
          
