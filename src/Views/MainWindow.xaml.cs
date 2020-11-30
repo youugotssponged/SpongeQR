@@ -87,6 +87,9 @@ namespace SpongeQR
             image_viewer.Source = null;
             EncodeChoiceDropDown.SelectedIndex = 0;
 
+            SaveStatusLabel.Content = "QR Currently Empty...";
+            SaveStatusLabel.Foreground = Brushes.Gray;
+
             CheckIfUserCanSave();
         }
 
