@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace SpongeQR
@@ -10,6 +11,7 @@ namespace SpongeQR
     public class WindowOperations
     {
         public DevInfo devInfo;
+        public string FileName { get; set; }
 
         public WindowOperations()
         {
@@ -35,7 +37,7 @@ namespace SpongeQR
             }
         }
 
-        public void SaveImage(Bitmap imageToSave)
+        public void SaveImage(Bitmap imageToSave, Label status)
         {
             if (imageToSave == null)
             {
@@ -50,6 +52,11 @@ namespace SpongeQR
                 {
                     saveFileDialog.Title = "Save a QR Code";
                     imageToSave.Save(saveFileDialog.FileName);
+
+                    FileName = saveFileDialog.SafeFileName;
+                    status.Content = $"{FileName} Saved!";
+                    status.Foreground = System.Windows.Media.Brushes.Green;
+
                     MessageBox.Show($"{saveFileDialog.FileName} was saved successfully", "Save Success!", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }

@@ -22,7 +22,6 @@ namespace SpongeQR
                 HorizontalAlignment = HorizontalAlignment.Left
             };
 
-
             subject = new TextBox
             {
                 Text = "The Subject.",

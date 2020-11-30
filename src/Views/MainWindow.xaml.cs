@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SpongeQR
 {
@@ -48,8 +49,6 @@ namespace SpongeQR
             // Set Window Title
             Title = $"Sponge QR ({windowOperations.devInfo.Version})";
 
-
-
             // Init Components that belong to the window;
             InitializeComponent();
 
@@ -64,13 +63,16 @@ namespace SpongeQR
         private void btn_GenerateQR_Click(object sender, RoutedEventArgs e)
         {
             generate(image_viewer); // Execute whatever function generate is pointed to.
+            SaveStatusLabel.Content = "QR Currently Not Saved";
+            SaveStatusLabel.Foreground = Brushes.Red;
+            
             CheckIfUserCanSave();
         }
 
         // Save Handler
         private void btn_SaveQR(object sender, RoutedEventArgs e)
         {
-            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.Bitmapsource));
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.Bitmapsource), SaveStatusLabel);
         }
 
         private void btn_OpenQR_Click(object sender, RoutedEventArgs e)
@@ -95,7 +97,7 @@ namespace SpongeQR
 
         private void MenuItem_Save_Click(object sender, RoutedEventArgs e)
         {
-            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.Bitmapsource));
+            windowOperations.SaveImage(windowOperations.GetBitmap(qrOperations.Bitmapsource), SaveStatusLabel);
         }
 
         // Exit Handler

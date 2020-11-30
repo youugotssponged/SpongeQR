@@ -18,7 +18,6 @@ namespace SpongeQR
                 Margin = new Thickness(384, 164, 46, 119)
             };
 
-
             parent.Children.Add(message);
         }
 

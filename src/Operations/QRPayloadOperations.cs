@@ -7,7 +7,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static QRCoder.PayloadGenerator;
 
-
 namespace SpongeQR
 {
     public class QRPayloadOperations
@@ -66,7 +65,7 @@ namespace SpongeQR
 
             QRCode qrCode = GenerateQRData(phoneNumber);
 
-            ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer); 
+            ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
         }
 
         public void GenerateWIFIQR(System.Windows.Controls.Image imageViewer)
@@ -94,6 +93,7 @@ namespace SpongeQR
         #endregion Generate Payload QR Code Methods
 
         #region Helper Functions
+
         private QRCode GenerateQRData(string payload)
         {
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(payload, QRCodeGenerator.ECCLevel.Q);
@@ -139,6 +139,7 @@ namespace SpongeQR
 
             MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        #endregion
+
+        #endregion Helper Functions
     }
 }
