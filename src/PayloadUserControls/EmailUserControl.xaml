@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SpongeQR.PayloadUserControls.EmailUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpongeQR.PayloadUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="130" d:DesignWidth="300">
+    <StackPanel Margin="10,-35,0,0">
+        <Label Name="EmailLabel" Content="Email:" />
+        <TextBox Name="EmailTextBox" Text="{Binding EmailAddress, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" />
+
+        <Label Name="SubjectLabel" Content="Subject:" />
+        <TextBox Name="SubjectTextBox" Text="{Binding EmailSubject, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" />
+
+        <Label Name="MessageLabel" Content="Email Body:" />
+        <TextBox Name="MessageTextBox" Text="{Binding EmailMessage, Mode=TwoWay}" Height="73" TextWrapping="Wrap" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" />
+    </StackPanel>
+</UserControl>

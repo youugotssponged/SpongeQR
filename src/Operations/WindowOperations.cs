@@ -17,9 +17,9 @@ namespace SpongeQR
         {
             devInfo = new DevInfo
             (
-                "v1.0.4",
+                "v1.1.0",
                 "jordanmccann64@outlook.com",
-                "Thank you for using Sponge QR! \n\nHope it has helped you on your venture <3"
+                "Thank you for using Sponge QR! \n\nHope it has helped you out. <3"
             );
         }
 

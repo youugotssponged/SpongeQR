@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="SpongeQR.PayloadUserControls.URLUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpongeQR.PayloadUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <StackPanel>
+        <TextBox Name="PhoneTextBox" Text="{Binding URL, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" Width="350" Margin="10,-30,0,0"/>
+    </StackPanel>
+</UserControl>

@@ -3,34 +3,29 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
+using SpongeQR.Models;
+
 namespace SpongeQR
 {
     public partial class MainWindow : Window
     {
         // Operation Specific - e.g. Save, Generate etc.
-        private WindowOperations windowOperations;
-        private QRPayloadOperations qrOperations;
+        public WindowOperations windowOperations;
+        public QRPayloadOperations qrOperations;
 
-        // Payloads - Payload Dynamic UI Models
-        public MessagePayload Message;
-        public EmailPayload Email;
-        public URLPayload Url;
-        public PhoneNumberPayload PhoneNumber;
-        public WIFIPayload Wifi;
-        public CalendarPayload Calendar;
+        // Data models
+        public EmailData emailData = new EmailData();
+        public MessageData messageData = new MessageData();
+        public URLData urlData = new URLData();
+        public WIFIData wifiData = new WIFIData();
+        public PhoneData phoneData = new PhoneData();
+        public CalendarData calendarData = new CalendarData();
 
-        // Reference to this window
-        public static MainWindow window;
-
-        // Function pointer to repoint functionality
-        public delegate void Generate(Image image);
-        public Generate generate;
+        // Pointer
+        public Action<Image> qrAction;
 
         public MainWindow()
         {
-            // Forward reference to this window
-            window = this;
-            
             // Window Settings
             ResizeMode = ResizeMode.NoResize;
 
@@ -38,31 +33,24 @@ namespace SpongeQR
             windowOperations = new WindowOperations();
             qrOperations = new QRPayloadOperations();
 
-            // Initialize Payloads
-            Message = new MessagePayload();
-            Email = new EmailPayload();
-            Url = new URLPayload();
-            PhoneNumber = new PhoneNumberPayload();
-            Wifi = new WIFIPayload();
-            Calendar = new CalendarPayload();
-
             // Set Window Title
             Title = $"Sponge QR ({windowOperations.devInfo.Version})";
 
             // Init Components that belong to the window;
             InitializeComponent();
+            PopulateQRDropdown();
 
             // Disable Save Button and Menu Button
             CheckIfUserCanSave();
         }
 
 
-        #region Common Component Handlers
 
         // Generate QR Image Handler
         private void btn_GenerateQR_Click(object sender, RoutedEventArgs e)
         {
-            generate(image_viewer); // Execute whatever function generate is pointed to.
+            qrAction(image_viewer); // Execute whatever function generate is pointed to.
+
             SaveStatusLabel.Content = "QR Currently Not Saved";
             SaveStatusLabel.Foreground = Brushes.Red;
             
@@ -80,7 +68,6 @@ namespace SpongeQR
             windowOperations.OpenImage(image_viewer);
         }
 
-        #region Menu Items
 
         private void MenuItem_New_Click(object sender, RoutedEventArgs e)
         {
@@ -114,11 +101,11 @@ namespace SpongeQR
             windowOperations.ShowAboutMessage();
         }
 
-        #endregion Menu Items
-
-        #endregion Common Component Handlers
-
-        #region Unique Component Handlers
+        public void PopulateQRDropdown()
+        {
+            EncodeChoiceDropDown.ItemsSource = Enum.GetValues(typeof(SpongeQR.Types.QRTypes));
+            EncodeChoiceDropDown.SelectedIndex = 0;
+        }
 
         // Fires Upon Drop-down option Being Changed
         private void EncodeChoiceDropDown_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -126,45 +113,35 @@ namespace SpongeQR
             image_viewer.Source = null; // Clear when selection type changes
             CheckIfUserCanSave();
 
-            switch (EncodeChoiceDropDown.SelectedIndex)
+            switch (EncodeChoiceDropDown.SelectedItem)
             {
-                case (int)DropDownOptions.SimpleMessage:
-                    GenerateAndRemoveComponents(Message, qrOperations.GenerateMessageQR, Email, Url, PhoneNumber, Wifi, Calendar);
+                case SpongeQR.Types.QRTypes.Email:
+                    UserControlController.Content = new SpongeQR.PayloadUserControls.EmailUserControl();
+                    qrAction = qrOperations.GenerateEmailQR;
                     break;
-                case (int)DropDownOptions.Email:
-                    GenerateAndRemoveComponents(Email, qrOperations.GenerateEmailQR, Message, Url, PhoneNumber, Wifi, Calendar);
+                case SpongeQR.Types.QRTypes.Message:
+                    UserControlController.Content = new SpongeQR.PayloadUserControls.MessageUserControl();
+                    qrAction = qrOperations.GenerateMessageQR;
                     break;
-                case (int)DropDownOptions.URL:
-                    GenerateAndRemoveComponents(Url, qrOperations.GenerateURLQR, Message, Email, PhoneNumber, Wifi, Calendar);
+                case SpongeQR.Types.QRTypes.PhoneNumber:
+                    UserControlController.Content = new SpongeQR.PayloadUserControls.PhoneUserControl();
+                    qrAction = qrOperations.GeneratePhoneNumberQR;
                     break;
-                case (int)DropDownOptions.PhoneNumber:
-                    GenerateAndRemoveComponents(PhoneNumber, qrOperations.GeneratePhoneNumberQR, Message, Email, Url, Wifi, Calendar);
+                case SpongeQR.Types.QRTypes.URL:
+                    UserControlController.Content = new SpongeQR.PayloadUserControls.URLUserControl();
+                    qrAction = qrOperations.GenerateURLQR;
                     break;
-                case (int)DropDownOptions.Wifi:
-                    GenerateAndRemoveComponents(Wifi, qrOperations.GenerateWIFIQR, Message, Email, Url, PhoneNumber, Calendar);
+                case SpongeQR.Types.QRTypes.WIFI:
+                    UserControlController.Content = new SpongeQR.PayloadUserControls.WIFIUserControl();
+                    qrAction = qrOperations.GenerateWIFIQR;
                     break;
-                case (int)DropDownOptions.CalendarEvent:
-                    GenerateAndRemoveComponents(Calendar, qrOperations.GenerateCalendarEventQR, Message, Email, Url, PhoneNumber, Wifi);
+                case SpongeQR.Types.QRTypes.CalendarEvent:
+                    UserControlController.Content = new SpongeQR.PayloadUserControls.CalendarUserControl();
+                    qrAction = qrOperations.GenerateCalendarEventQR;
                     break;
             }
         }
-        #endregion Unique Component Handlers
 
-        #region Helper Functions
-        private void GenerateAndRemoveComponents(IPayloadUI toGenerate, Generate PayloadOperationToBeExecuted, params IPayloadUI[] toBeRemoved)
-        {
-            // Call Generate
-            toGenerate.GenerateComponents(mainGrid);
-
-            // Point to operation to be executed later
-            generate = PayloadOperationToBeExecuted;
-
-            // Remove Each Specified
-            foreach (IPayloadUI component in toBeRemoved)
-            {
-                component.RemoveComponents(mainGrid);
-            }
-        }
         private bool CheckIfUserCanSave()
         {
             // If the image has not been generated, disable save feature
@@ -184,19 +161,6 @@ namespace SpongeQR
                 return true;
             }
         }
-        #endregion
-
-        #region Enums
-        private enum DropDownOptions
-        {
-            SimpleMessage = 0,
-            Email,
-            URL,
-            PhoneNumber,
-            Wifi,
-            CalendarEvent
-        }
-        #endregion
 
     }
 }

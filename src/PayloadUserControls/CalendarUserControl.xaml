@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="SpongeQR.PayloadUserControls.CalendarUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpongeQR.PayloadUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <StackPanel Margin="10,-35,0,0">
+        <Label Name="CalendarSubjectLabel" Content="Event Title:" />
+        <TextBox Name="CalendarSubjectTextBox" Text="{Binding CalendarSubject, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" />
+
+        <Label Name="CalendarDescriptionLabel" Content="Event Description:" />
+        <TextBox Name="CalendarDescriptionTextBox" Text="{Binding CalendarDescription, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" />
+
+        <Label Name="CalendarLocationLabel" Content="Location:" />
+        <TextBox Name="CalendarLocationTextBox" Text="{Binding CalendarLocation, Mode=TwoWay}" Height="21" TextWrapping="Wrap" MaxWidth="{Binding ElementName=b,Path=ActualWidth}" />
+
+        <Label Name="CalendarStartLabel" Content="Start:" />
+        <DatePicker SelectedDate="{Binding CalendarStart, Mode=TwoWay}" />
+
+
+        <Label Name="CalendarEndLabel" Content="End:" />
+        <DatePicker SelectedDate="{Binding CalendarEnd, Mode=TwoWay}" />
+
+        <!-- IMPLEMENT IS ALL DAY TOGGLE -->
+        <Label Name="CalendarIsAllDayLabel" Content="Is All Day?" />
+        <CheckBox Name="CalendarIsAllDayCheckbox" IsChecked="{Binding CalendarIsAllDay, Mode=TwoWay}"/>
+
+        <Label Name="CalendarEncodeTypeLabel" Content="Calendar Type (ICAL = icloud calendar, Universal = Any):" />
+        <ComboBox Name="CalendarEncodeTypeComboBox" Text="{Binding CalendarEncodeType, Mode=TwoWay}" />
+
+    </StackPanel>
+</UserControl>

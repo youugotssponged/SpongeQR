@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="SpongeQR.PayloadUserControls.WIFIUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpongeQR.PayloadUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <StackPanel Margin="10,-30,0,0">
+
+        <Label Name="WifiNameLabel" Content="SSID - Wifi Name:" />
+        <TextBox Name="SSIDTextBox" Text="{Binding WifiSSID, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}"/>
+
+        <Label Name="PasswordLabel" Content="Password:" />
+        <TextBox Name="PasswordTextBox" Text="{Binding WifiPassword, Mode=TwoWay}" MaxWidth="{Binding ElementName=b,Path=ActualWidth}"/>
+
+        <Label Name="AuthTypeLabel" Content="Authentication Type:" />
+        <ComboBox Name="AuthTypeComboBox" Text="{Binding WifiAuthType, Mode=TwoWay}" />
+    </StackPanel>
+</UserControl>

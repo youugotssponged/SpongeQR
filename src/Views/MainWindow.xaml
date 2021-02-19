@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Height="450" Width="800">
+        Height="636" Width="800">
     <Grid x:Name="mainGrid">
-        <DockPanel Margin="0,0,0,393">
-            <Menu DockPanel.Dock="Top" Height="41" Width="800" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <DockPanel Margin="0,-180,0,393">
+            <Menu DockPanel.Dock="Top" Height="22" Width="800">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" Click="MenuItem_New_Click" />
                     <MenuItem Header="_Open" Click="MenuItemOpen_Click" />
@@ -27,16 +27,12 @@
 
         <Button x:Name="btn_SaveQRImage" Content="Save QR Image" HorizontalAlignment="Left" Margin="597,46,0,0" VerticalAlignment="Top" Width="149" Height="29" Click="btn_SaveQR" />
 
-        <ComboBox x:Name="EncodeChoiceDropDown" Margin="383,106,46,275" SelectionChanged="EncodeChoiceDropDown_SelectionChanged">
-            <ComboBoxItem IsSelected="True" Content="Simple Message"></ComboBoxItem>
-            <ComboBoxItem Content="Email"></ComboBoxItem>
-            <ComboBoxItem Content="URL / Web Link"></ComboBoxItem>
-            <ComboBoxItem Content="Phone Number"></ComboBoxItem>
-            <ComboBoxItem Content="Wifi"></ComboBoxItem>
-            <ComboBoxItem Content="Calendar Event"></ComboBoxItem>
-        </ComboBox>
+        <ComboBox x:Name="EncodeChoiceDropDown" Margin="383,106,46,464" SelectionChanged="EncodeChoiceDropDown_SelectionChanged"></ComboBox>
 
-        <Label x:Name="SaveStatusLabel" Content="QR Currently Empty..." HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="85" Width="460" FontSize="40" Foreground="Gray"/>
+        <!-- -->
+        <ContentControl Name="UserControlController" Margin="335, 180, 10, 75" />
+
+        <Label x:Name="SaveStatusLabel" Content="QR Currently Empty..." HorizontalAlignment="Right" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" Height="75" Width="460" FontSize="40" Foreground="Gray"/>
 
     </Grid>
 </Window>

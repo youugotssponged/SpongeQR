@@ -15,21 +15,19 @@ namespace SpongeQR
         public Bitmap qrCodeImage { get; private set; }
         public BitmapSource Bitmapsource { get; private set; }
 
-        private MainWindow windowRef;
+        private MainWindow mainWindow;
 
         public QRPayloadOperations()
         {
             qrGenerator = new QRCodeGenerator();
             qrCodeImage = null;
 
-            windowRef = MainWindow.window;
+            mainWindow = Application.Current.MainWindow as MainWindow;
         }
-
-        #region Generate Payload QR Code Methods
 
         public void GenerateMessageQR(System.Windows.Controls.Image imageViewer)
         {
-            string messageToEncode = windowRef.Message.message.Text;
+            string messageToEncode = mainWindow.messageData.MessageText;
 
             QRCode qrCode = GenerateQRData(messageToEncode);
 
@@ -38,9 +36,9 @@ namespace SpongeQR
 
         public void GenerateEmailQR(System.Windows.Controls.Image imageViewer)
         {
-            string email = windowRef.Email.email.Text;
-            string subject = windowRef.Email.subject.Text;
-            string message = windowRef.Email.message.Text;
+            string email = mainWindow.emailData.EmailAddress;
+            string subject = mainWindow.emailData.EmailSubject;
+            string message = mainWindow.emailData.EmailMessage;
 
             Mail generator = new Mail(email, subject, message);
             string payload = generator.ToString();
@@ -52,7 +50,7 @@ namespace SpongeQR
 
         public void GenerateURLQR(System.Windows.Controls.Image imageViewer)
         {
-            string url = windowRef.Url.url.Text;
+            string url = mainWindow.urlData.URL;
 
             QRCode qrCode = GenerateQRData(url);
 
@@ -61,7 +59,7 @@ namespace SpongeQR
 
         public void GeneratePhoneNumberQR(System.Windows.Controls.Image imageViewer)
         {
-            string phoneNumber = windowRef.PhoneNumber.number.Text;
+            string phoneNumber = mainWindow.phoneData.PhoneNumber;
 
             QRCode qrCode = GenerateQRData(phoneNumber);
 
@@ -70,15 +68,16 @@ namespace SpongeQR
 
         public void GenerateWIFIQR(System.Windows.Controls.Image imageViewer)
         {
-            string ssid = windowRef.Wifi.ssid.Text;
-            string password = windowRef.Wifi.password.Text;
-            string authMode = windowRef.Wifi.authMode.Text;
+            string ssid = mainWindow.wifiData.WifiSSID;
+            string password = mainWindow.wifiData.WifiPassword;
+            SpongeQR.Types.WIFIAuthTypes authMode = mainWindow.wifiData.WifiAuthType;
 
             WiFi.Authentication auth = CheckWIFIAuthTypeSelected(authMode);
-            if (auth == WiFi.Authentication.nopass) return;
 
             WiFi generator = new WiFi(ssid, password, auth);
+
             string payload = generator.ToString();
+            Console.WriteLine(payload);
 
             QRCode qrCode = GenerateQRData(payload);
 
@@ -87,12 +86,26 @@ namespace SpongeQR
 
         public void GenerateCalendarEventQR(System.Windows.Controls.Image imageViewer)
         {
-            MessageBox.Show("Calendar Feature Not Available");
+            // Pluck data from main window
+            string subject = mainWindow.calendarData.CalendarSubject;
+            string description = mainWindow.calendarData.CalendarDescription;
+            string location = mainWindow.calendarData.CalendarLocation;
+
+            DateTime start = mainWindow.calendarData.CalendarStart;
+            DateTime end = mainWindow.calendarData.CalendarEnd;
+
+            bool allday = mainWindow.calendarData.CalendarIsAllDay;
+
+            // Check and map encoding types
+            CalendarEvent.EventEncoding calendarType = CheckCalendarEncodeTypeSelected(mainWindow.calendarData.CalendarEncodeType);
+
+            // Convert to payload, generate and update image view
+            CalendarEvent calendarGenerator = new CalendarEvent(subject, description, location, start, end, allday, calendarType);
+            string payload = calendarGenerator.ToString();
+
+            QRCode qrCode = GenerateQRData(payload);
+            ConvertBitmapToSourceAndDisplay(qrCodeImage, qrCode, Bitmapsource, imageViewer);
         }
-
-        #endregion Generate Payload QR Code Methods
-
-        #region Helper Functions
 
         private QRCode GenerateQRData(string payload)
         {
@@ -102,20 +115,40 @@ namespace SpongeQR
             return qrCode;
         }
 
-        private WiFi.Authentication CheckWIFIAuthTypeSelected(string authModeChosen)
+        private WiFi.Authentication CheckWIFIAuthTypeSelected(SpongeQR.Types.WIFIAuthTypes authModeChosen)
         {
-            if (authModeChosen == "WPA")
+            if (authModeChosen == SpongeQR.Types.WIFIAuthTypes.WPA || authModeChosen == SpongeQR.Types.WIFIAuthTypes.WPA2)
             {
                 return WiFi.Authentication.WPA;
             }
-            else if (authModeChosen == "WEP")
+            else if (authModeChosen == SpongeQR.Types.WIFIAuthTypes.WEP)
             {
                 return WiFi.Authentication.WEP;
             }
+            else if (authModeChosen == SpongeQR.Types.WIFIAuthTypes.None)
+            {
+                return WiFi.Authentication.nopass;
+            }
             else
             {
-                MessageBox.Show("Please Enter an Authentication Type!");
-                return WiFi.Authentication.nopass;
+                // Default to WPA as a fallback - as most routers use this
+                return WiFi.Authentication.WPA;
+            }
+        }
+
+        public CalendarEvent.EventEncoding CheckCalendarEncodeTypeSelected(SpongeQR.Types.CalendarEncodeTypes type)
+        {
+            if (type == SpongeQR.Types.CalendarEncodeTypes.UNIVERSAL)
+            {
+                return CalendarEvent.EventEncoding.Universal;
+            }
+            else if (type == SpongeQR.Types.CalendarEncodeTypes.ICAL)
+            {
+                return CalendarEvent.EventEncoding.iCalComplete;
+            }
+            else
+            {
+                return CalendarEvent.EventEncoding.Universal;
             }
         }
 
@@ -139,7 +172,5 @@ namespace SpongeQR
 
             MessageBox.Show("Code was Generated Successfully, to save click \"Save QR Image\"", "QR Generation Success!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        #endregion Helper Functions
     }
 }
