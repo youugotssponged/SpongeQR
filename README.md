@@ -26,14 +26,12 @@ Below is a link to his repo which also houses the wonderfully written documentat
 
 * * *
 
-## Payloads (Types of QR) that this application supports out of the box currently as of (1.0.0):
+## Payloads (Types of QR) that this application supports out of the box currently as of (1.1.0):
 - Simple Message
 - Email
 - URL
 - Phone Number
 - Wifi
-
-### Currently Being Developed (will be included in future updates):
 - Calendar Event
 
 * * *
